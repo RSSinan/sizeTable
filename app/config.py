@@ -5,8 +5,8 @@ class Config:
     CSRF_ENABLED = True
 
     USER = 'sa'
-    PASSWORD = 'sinan1995'
-    HOST = 'NTB-97\SQLEXPRESS'
+    PASSWORD = 'RealIkili2019!!'
+    HOST = '37.148.209.211'
     DATABASE = 'QualityDB2'
 
     SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_007')

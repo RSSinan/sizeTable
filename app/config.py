@@ -7,7 +7,7 @@ class Config:
     USER = 'sa'
     PASSWORD = 'RealIkili2019!!'
     HOST = '37.148.209.211'
-    DATABASE = 'QualityDB2'
+    DATABASE = 'QualityDB'
 
     SECRET_KEY = config('SECRET_KEY', default='S#perS3crEt_007')
     SQLALCHEMY_DATABASE_URI = 'mssql+pyodbc://' + USER + ':' + PASSWORD + '@' + HOST + '/' + DATABASE + '?driver=SQL+Server'

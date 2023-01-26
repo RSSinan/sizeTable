@@ -20,6 +20,7 @@ def index():
 
     order_id = request.args.get("order_id")
     current_step_id = -1
+    current_order_id = -1
     if order_id is not None:
         current_order_id = order_id
         step_dict = {}

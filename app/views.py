@@ -66,7 +66,9 @@ def get_current_measurement():
 
 @app.route('/order_definition', methods=['GET', 'POST'])
 def order_definition():
+    global current_step_id
     if request.method == 'GET':
+        current_step_id = -1
         return render_template("order_definition.html")
     else:
         order_code = request.form["order_code"]
@@ -81,6 +83,7 @@ def order_definition():
 
 @app.route('/step_definition', methods=['POST', 'GET'])
 def step_definition():
+    global current_step_id
     order_dict = {}
     for i in Order.query.filter_by().all():
         order_dict[i.id] = i.order_code
@@ -96,6 +99,7 @@ def step_definition():
             step.save()
             return render_template("step_definition..html", order_dict=order_dict, error="ok")
     else:
+        current_step_id = -1
         return render_template("step_definition..html", order_dict=order_dict)
 
 

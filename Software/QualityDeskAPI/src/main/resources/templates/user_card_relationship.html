@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <link rel="stylesheet" th:href="@{/assets/bootstrap/css/bootstrap.min.css}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+  <link rel="stylesheet" th:href="@{/assets/fonts/fontawesome-all.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/fonts/font-awesome.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/fonts/ionicons.min.css}">
+  <link rel="stylesheet" th:href="@{/assets/fonts/fontawesome5-overrides.min.css}">
+</head>
+
+<body id="page-top">
+<div id="wrapper">
+  <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+    <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+      <div class="sidebar-brand-icon"><i class="icon ion-ribbon-a"></i></div>
+      <div class="sidebar-brand-text mx-3"><span>Real Solutions</span></div>
+    </a>
+      <hr class="sidebar-divider my-0">
+      <ul class="navbar-nav text-light" id="accordionSidebar">
+        <li class="nav-item"><a class="nav-link" href="Index"><i class="fas fa-tachometer-alt"></i><span>Ana Ekran</span></a></li>
+        <hr class="sidebar-divider" />
+        <div class="sidebar-heading">
+          <p class="mb-0">Kullanıcı</p>
+        </div>
+        <li class="nav-item"><a class="nav-link" href="UserDefinition"><i class="fas fa-user"></i><span>Kullanıcı</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="CardDefinition"><i class="fas fa-credit-card"></i><span>Kart</span></a></li>
+        <li class="nav-item"><a class="nav-link active" href="UserCardRelationship"><i class="fas fa-user"></i><span>Kullanıcı-Kart</span></a></li>
+        <hr class="sidebar-divider" />
+        <div class="sidebar-heading">
+          <p class="mb-0">Order</p>
+        </div>
+        <li class="nav-item"><a class="nav-link" href="OrderDefinition"><i class="fas fa-shopping-bag"></i><span>Order</span></a></li>
+        <hr class="sidebar-divider" />
+        <div class="sidebar-heading">
+          <p class="mb-0">Ölçü</p>
+        </div>
+        <li class="nav-item"><a class="nav-link" href="SizeDefinition"><i class="fas fa-hat-cowboy-side"></i><span>Beden</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="MeasurePointDefinition"><i class="fas fa-ruler"></i><span>Ölçü Noktası</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="StepDefinition"><i class="fas fa-shoe-prints"></i><span>Ölçü Adımları</span></a></li>
+        <hr class="sidebar-divider" />
+      </ul>
+      <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+    </div>
+  </nav>
+  <div class="d-flex flex-column" id="content-wrapper">
+    <div id="content">
+      <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+          <ul class="navbar-nav flex-nowrap ml-auto">
+            <li class="nav-item dropdown no-arrow">
+              <a class="dropdown-item-text" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Çıkış</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+          <h3 class="text-dark mb-0">Kullanıcı-Kart Tanımlama</h3>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-lg-8">
+            <div class="row">
+              <div class="col">
+                <div class="card shadow mb-3">
+                  <div class="card-header py-3">
+                    <p class="text-primary m-0 fw-bold">Kullanıcı Kart Ayarları</p>
+                  </div>
+                  <div class="card-body">
+                    <form th:action="@{/view/AddUserCardRelationship}" method="post" th:object="${newUserCardRelationship}">
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group"><label for="user" id="user"><strong>Kullanıcı Seçimi</strong><br></label>
+                            <select class="form-control" th:field="*{user.id}">
+                              <option th:each="user : ${userListByIsCardDefined}" th:text="${user.fullName}" th:value="${user.id}"></option>
+                            </select></div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group"><label for="card" id="card"><strong>Kart Seçimi</strong><br></label>
+                            <select class="form-control" th:field="*{card.id}">
+                              <option th:each="card : ${cardListByIsUsing}" th:text="${card.cardNo}" th:value="${card.id}"></option>
+                            </select></div>
+                        </div>
+                      </div>
+                      <div th:if="${param.user_card_relationship_add_ok}">
+                        <div class="alert alert-success col-xs-offset-1 col-xs-10">Başarılı.</div>
+                      </div>
+                      <div class="mb-3"><button class="btn btn-primary btn-sm" type="submit">Ekle</button></div>
+                    </form>
+                  </div>
+                </div>
+                <div class="card shadow"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col-lg-8">
+          <div class="row">
+            <div class="col">
+              <div class="container-fluid">
+                <h3 class="text-dark mb-4">Kullanıcı-Kart Listesi</h3>
+                <div class="card shadow">
+                  <div class="card-header py-3">
+                    <p class="text-primary m-0 fw-bold">Kullanıcı-Kart Bilgileri</p>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
+                      <table id="dataTable" class="table my-0">
+                        <thead>
+                        <tr>
+                          <th>Id</th>
+                          <th>Kart No</th>
+                          <th>Kullanıcı Adı</th>
+                          <th>İşlemler</th>
+                        </tr>
+                        </thead>
+                        <tbody th:each="userCard , stat: ${userCardRelationshipList}">
+                        <tr>
+                          <td th:text="${userCard.id}"></td>
+                          <td th:text="${userCard.card.cardNo}"></td>
+                          <td th:text="${userCard.user.fullName}"></td>
+                          <td>
+                            <button style="color: red;" type="button" class="btn btn-link" data-toggle="modal" th:data-target="'#modal_delete_'+${stat.index}"><i class="fas fa-trash-alt"></i></button>
+                            <span style="color: green;" th:if="${param.delete_ok != null}" ><i class="fas fa-check"></i></span>
+                            <span style="color: red;" th:if="${param.delete_err != null}" ><i class="fas fa-remove"></i></span>
+                            <!-- Modal -->
+                            <div class="modal fade" th:id="'modal_delete_'+${stat.index}" tabindex="-1" role="dialog" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title">Kullanıcı-Kart Sil</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form class="user" th:action="@{/view/DeleteUserCardRelationship}" method="post">
+                                      <div class="form-row">
+                                        <div class="col"><div class="form-group"><input class="form-control" type="text" th:placeholder="${userCard.id}" name="id" th:value="${userCard.id}" readonly></div></div>
+                                      </div>
+                                      <div class="form-group">
+                                        <button class="btn btn-danger btn-sm" type="submit">Sil</button>
+                                        <button class="btn btn-secondary btn-sm" data-dismiss="modal">Kapat</button>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <footer class="bg-white sticky-footer">
+      <div class="container my-auto">
+        <div class="text-center my-auto copyright"><span>Copyright © Brand 2023</span></div>
+      </div>
+    </footer>
+  </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+</div>
+
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script th:src="@{/assets/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/js/chart.min.js}"></script>
+<script th:src="@{/assets/js/bs-init.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+<script th:src="@{/assets/js/theme.js}"></script>
+<script th:src="@{/assets/js/app.js}"></script>
+
+</body>
+
+</html>

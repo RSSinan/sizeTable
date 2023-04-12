@@ -29,13 +29,22 @@ public class OrderRestController {
 
         List<Order> orderList = orderService.findAll();
 
+        ordersMap.put("Status", "Not Found");
+
+        int counter = 1;
+
         for (Order order : orderList) {
 
             HashMap<Object, Object> orderMap = new HashMap<>();
 
+            orderMap.put("Id", order.getId());
             orderMap.put("OrderNo", order.getOrderNo());
             orderMap.put("ModelName", order.getModelName());
-            ordersMap.put(order.getId(), orderMap);
+            ordersMap.put(counter, orderMap);
+
+            counter++;
+
+            ordersMap.put("Status", "OK");
         }
 
         return ordersMap;

@@ -47,35 +47,34 @@ public class UserRestController {
     }
 
     @GetMapping("/CheckUserByForm")
-    public HashMap<Object, Object> CheckUserByForm(@RequestBody HashMap<Object, Object> userInfoMap) {
+    public HashMap<Object, Object> CheckUserByForm(@RequestParam(name = "mail") String mail) {
 
         HashMap<Object, Object> usersMap = new HashMap<>();
 
-        List<User> userList = userService.findByMail(String.valueOf(userInfoMap.get("mail")));
+        List<User> userList = userService.findByMail(mail);
 
         if (!userList.isEmpty()) {
 
-            HashMap<Object, Object> userMap = new HashMap<>();
-            userMap.put("FullName", userList.get(0).getFullName());
-            userMap.put("Note", userList.get(0).getNote());
-            userMap.put("Mail", userList.get(0).getMail());
-            userMap.put("Password", userList.get(0).getPassword());
-
-            usersMap.put(userList.get(0).getId(), userMap);
+            usersMap.put("Id", userList.get(0).getId());
+            usersMap.put("FullName", userList.get(0).getFullName());
+            usersMap.put("Note", userList.get(0).getNote());
+            usersMap.put("Mail", userList.get(0).getMail());
+            usersMap.put("Password", userList.get(0).getPassword());
+            usersMap.put("Status", "OK");
 
         } else {
-            usersMap.put(0, 0);
+            usersMap.put("Status", "User Not Found");
         }
 
         return usersMap;
     }
 
     @GetMapping("/CheckUserByCardNo")
-    public HashMap<Object, Object> CheckUserByCardNo(@RequestBody HashMap<Object, Object> cardMap) {
+    public HashMap<Object, Object> CheckUserByCardNo(@RequestParam(name = "cardNo") String cardNo) {
 
         HashMap<Object, Object> usersMap = new HashMap<>();
 
-        List<Card> cardList = cardService.findByCardNo(String.valueOf(cardMap.get("cardNo")));
+        List<Card> cardList = cardService.findByCardNo(cardNo);
 
         if (!cardList.isEmpty()) {
 
@@ -83,21 +82,19 @@ public class UserRestController {
 
             if (!userCardRelationshipList.isEmpty()) {
 
-                HashMap<Object, Object> userMap = new HashMap<>();
-                userMap.put("FullName", userCardRelationshipList.get(0).getUser().getFullName());
-                userMap.put("Note", userCardRelationshipList.get(0).getUser().getNote());
-                userMap.put("Mail", userCardRelationshipList.get(0).getUser().getMail());
-                userMap.put("Password", userCardRelationshipList.get(0).getUser().getPassword());
-
-                usersMap.put(userCardRelationshipList.get(0).getUser().getId(), userMap);
+                usersMap.put("Id", userCardRelationshipList.get(0).getUser().getId());
+                usersMap.put("FullName", userCardRelationshipList.get(0).getUser().getFullName());
+                usersMap.put("Note", userCardRelationshipList.get(0).getUser().getNote());
+                usersMap.put("Mail", userCardRelationshipList.get(0).getUser().getMail());
+                usersMap.put("Password", userCardRelationshipList.get(0).getUser().getPassword());
+                usersMap.put("Status", "OK");
             }
 
         } else {
-            usersMap.put(0, 0);
+            usersMap.put("Status", "User Not Found");
         }
 
         return usersMap;
     }
-
 
 }

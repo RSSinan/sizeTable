@@ -34,7 +34,7 @@
 #define RDM_PCK_END     0x03
 #define RDM_DEF_PATTERN 0x53
 
-#define DIST_READINGS   100
+#define DIST_READINGS   30
 
 
 // Comminication Characters

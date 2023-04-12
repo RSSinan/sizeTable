@@ -29,12 +29,23 @@ public class SizeRestController {
 
         List<Size> sizeList = sizeService.findAll();
 
+        sizesMap.put("Status", "Not Found");
+
+        int counter = 1;
+
         for (Size size : sizeList) {
 
             HashMap<Object, Object> sizeMap = new HashMap<>();
 
+            sizeMap.put("Id", size.getId());
             sizeMap.put("Name", size.getName());
-            sizesMap.put(size.getId(), sizeMap);
+            sizesMap.put(counter, sizeMap);
+
+            counter++;
+
+            sizesMap.put("Status", "OK");
+
+
         }
 
         return sizesMap;
